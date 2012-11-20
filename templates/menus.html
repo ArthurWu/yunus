@@ -1,0 +1,17 @@
+<ul id="menus">
+	<li><a href="/">首页</a></li>
+	{% for menu in menus %}
+	<li>
+		<a href="/menu/{{menu.id}}" {% if menu.has_child %}onclick="return false;"{% endif %} onmouseover="mopen('menuitems{{menu.id}}')" onmouseout="mclosetime()">{{menu.name}}</a>
+		{% if menu.menu_items.all %}
+		<div id="menuitems{{menu.id}}" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
+			{% for item in menu.menu_items.all %}
+			<a href="/menu/{{menu.id}}/{{item.id}}">{{item.name}}</a>
+			{% endfor %}
+		</div>
+		{% endif %}
+	</li>
+	{% endfor %}
+	<li><a href="/contact-us">联系我们</a></li>
+</ul>
+<div class="clear"></div>

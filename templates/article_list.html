@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<link href="/static/css/article.css" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block slide_images %}
+<img src="/static/image/media_centre.jpg" />
+{% endblock %}
+
+{% block navigation %}
+<div class="navigation">
+    <span class="right">
+        <a href="/">首页</a>>>
+        <a href="/menu/{{menu.id}}">{{menu.name}}</a>
+    </span>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="clear"></div>
+<div id="art-cont">
+    <div class="article-list">
+        <div class="tab">
+            {% if sub_menus %}
+                {% for menuitem in sub_menus %}
+                <span class="tab-header {% if menuitem.id  == selected_menu_id %}selected-tab{% endif %}">
+                    <a href="/menu/{{menu.id}}/{{menuitem.id}}">{{menuitem.name}}</a>
+                </span>
+                {% endfor %}
+            {% else %}
+                <span class="tab-header selected-tab">
+                    <a href="/menu/{{menu.id}}">{{menu.name}}</a>
+                </span>
+            {% endif %}
+            <div class="clear"></div>
+        </div>
+        <div class="tab-content">
+            <ul>
+                {% if articles %}
+                {% for article in articles %}
+                <li>
+                    <img class="img-left" src="/media/{{article.image}}" alt="" />
+                    <span class="item-info">
+                        <a class="none-style" href="/centre/article/{{article.id}}"><span class="item-title">{{article.title}}</span></a>
+                        <span class="item-date">专题 | {{article.created|date:"Y-m-d H:s"}}</span>
+                        <span class="item-summary">{{article.body}}</span>
+                    </span>
+                </li>
+                <li class="item-split"><hr /></li>
+                {% endfor %}
+                
+                <li class="pagination">
+                    {% if articles.has_previous %}
+                    <span class="last-page">
+                        <a href="?page={{ articles.previous_page_number }}">上一页</a>
+                    </span>
+                    {% endif %}
+
+                    <span class="pages">
+                        {% for p in articles.paginator.page_range %}
+                        <a class="{% if p == articles.number %}selected-page{% endif %}" href="?page={{ p }}">{{p}}</a>
+                        {% endfor %}
+                    </span>
+
+                    {% if articles.has_next %}
+                    <span class="next-page">
+                        <a href="?page={{ articles.next_page_number }}">下一页</a>
+                    </span>
+                    {% endif %}
+                </li>
+                <li class="item-split"><hr /></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="side-bar">
+        <div class="box-title side-bar-title">
+            <span class="left">JOIN US</span>
+            <span class="right">加入我们</span>
+        </div>
+        <a href="/contact-us">
+            <img src="/static/image/join_us.jpg" alt="" width="253" height="140" />
+        </a>
+    </div>
+</div>
+{% endblock %}

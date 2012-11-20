@@ -1,0 +1,118 @@
+#art-cont{
+    margin: 0 20px;
+}
+.article-list{
+    float: left;
+    width: 668px;
+}
+.tab{
+    border-bottom: 3px solid #e0e0e0;
+}
+.tab-header{
+    float: left;
+    display: block;
+    background-color: #a0a0a0; #d2d2d2;
+    color: #ffffff;
+    margin-right: 3px;
+    border-radius: 5px 5px 0 0;
+}
+.tab-header a, .tab-header a:link, .tab-header a:visited{
+    text-decoration: none;
+    display: block;
+    padding: 5px 20px;
+    color: #FFFFFF;
+}
+.tab-header a:hover{
+    background-color: #a2b973;
+    border-radius: 5px 5px 0 0;
+}
+.selected-tab{
+    background-color: #a2b973;
+}
+.tab-content ul{
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;;
+    font-size: 14px;
+}
+.tab-content ul li{
+    padding: 15px;
+    background-color: #eff3e4;
+}
+.tab-content img.img-left{
+    float: left;
+    display: block;
+    width: 260px;
+    height: 140px;
+    margin: 0 15px 0px 0;
+}
+.tab-content .item-title{
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    color: #a2b973;
+    margin-bottom: 10px;
+}
+.tab-content .item-date{
+    color: #a0a0a0;
+    display: block;
+    margin-bottom: 5px;
+}
+.tab-content .item-split{
+    padding: 5px 0;
+    background-color: #FFFFFF;
+}
+.tab-content .item-split hr{
+    border:1px #cccccc dashed;
+    padding: 0;
+    margin: 0;
+}
+.tab-content .item-info a:hover{
+    color: #628517;
+}
+.tab-content .pagination{
+    text-align: right;
+    background-color: #FFFFFF;
+    padding: 0px;
+    margin: 0px;
+}
+.pagination a{
+    text-decoration: none;
+    color: #a2b973;
+    padding: 0 5px;
+}
+.pagination .last-page a, .pagination .next-page a{
+    font-size: 16px;
+}
+
+.pagination .selected-page, .pagination a:hover{
+    color: #FFFFFF;
+    background-color: #a2b973;
+}
+
+.side-bar{
+    float: right;
+    width: 253px;
+}
+.side-bar-title{
+    margin: 27px 0 20px 0;
+    padding-right: 10px;
+}
+#title{
+    font-size: 18px;
+    font-weight: bold;
+    color: #a2b973;
+    text-align: center;
+    margin: 10px 0;
+}
+#date{
+    font-size: 12px;
+    color: #A0A0A0;
+    text-align: right;
+    padding: 5px 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+#body{
+    padding: 20px;
+    font-size: 14px;
+}

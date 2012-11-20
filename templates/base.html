@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{% block title %}Yunus Centre - China{% endblock %}</title>
+    <link href="/static/css/style.css" type="text/css" rel="stylesheet" />
+    <link href="/static/css/menu.css" type="text/css" rel="stylesheet" />
+    {% block styles %}{% endblock %}
+    <script type="text/javascript" src="/static/script/menus.js"></script>
+    {% block scripts %}{% endblock %}
+</head>
+<body>
+    <div id="header">
+        <div id="logo">
+            <a href="/">
+                <img src="/static/image/logo.jpg" />
+            </a>
+        </div>
+        <div id="search-box">
+            <form action="/search">
+                <input class="search_text" type="text" name="q" />
+                <input class="search_button" type="submit" value="" />
+            </form>
+        </div>
+        <div id="menu-box">
+            {% include "menus.html" %}
+        </div>
+    </div>
+    <div id="container">
+        <div class="bgtop"></div>
+        <div class="bgwraper">
+            <div id="content">
+                <span class="slide-iamges">
+                    {% block slide_images %}{% endblock %}
+                </span>
+                
+                {% block navigation %}
+                <div class="navigation">
+                    <span class="right">
+                        <a href="/">首页</a>>>
+                        <a href="#">媒体中心</a>
+                    </span>
+                </div>
+                {% endblock %}
+                <div class="clear"></div>
+                {% block content %}{% endblock %}
+            </div>
+            <div class="clear"></div>
+            <div class="rel-links">
+                <a href=""><img src="/static/image/sina.jpg" alt="" /></a>
+                <a href="/latest/feed/"><img src="/static/image/feed.jpg" alt="" /></a>
+                <a href=""><img src="/static/image/blog.jpg" alt="" /></a>
+                <a href=""><img src="/static/image/en.jpg" alt="" /></a>
+            </div>
+            <div id="footer">
+                <span id="footer-info">
+                   <span>尤怒斯中心-中国 版权所有</span>
+                   <span>&copy; 2012 inc. Yunus Centre &bull; China All rights releaved</span>
+                </span>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>    
+</body>

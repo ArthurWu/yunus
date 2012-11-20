@@ -1,0 +1,58 @@
+[
+  {
+    "model": "centre.Menu",
+    "pk": 1,
+    "fields": {
+      "name": "关于我们",
+      "name_english": "About Us",
+      "order": 1
+    }
+  },
+  {
+    "model": "centre.Menu",
+    "pk": 2,
+    "fields": {
+      "name": "媒体中心",
+      "name_english": "About Us",
+      "order": 2
+    }
+  },
+  {
+    "model": "centre.Menu",
+    "pk": 5,
+    "fields": {
+      "name": "专题故事",
+      "name_english": "About Us",
+      "order": 1,
+      "parent": 2
+    }
+  },
+  {
+    "model": "centre.Menu",
+    "pk": 6,
+    "fields": {
+      "name": "新闻报道",
+      "name_english": "About Us",
+      "order": 2,
+      "parent": 2
+    }
+  },
+  {
+    "model": "centre.Menu",
+    "pk": 3,
+    "fields": {
+      "name": "学习中心",
+      "name_english": "About Us",
+      "order": 3
+    }
+  },
+  {
+    "model": "centre.Menu",
+    "pk": 4,
+    "fields": {
+      "name": "联系我们",
+      "name_english": "About Us",
+      "order": 4
+    }
+  }
+]

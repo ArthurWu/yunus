@@ -1,0 +1,25 @@
+<div class="box">
+    <div class="box-title">
+        <span class="left">{{item.name_english}}</span>
+        <span class="right">{{item.name}}</span>
+    </div>
+    <div class="box-content">
+        <ul>
+            {% for line in lineitem %}
+            <li class="{% if line.first %}no-triangle{% endif %}">
+                {% if line.first %}
+                <a href="/centre/article/{{line.id}}"><img src="/media/{{line.image}}" alt="" /></a>
+                <a href="/centre/article/{{line.id}}">{{line.title}}</a>
+                {% else %}
+                <a href="/centre/article/{{line.id}}">{{line.title}}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="box-more clear">
+        <a href="/menu/{{item.parent.id}}/{{item.id}}">
+            <img src="/static/image/bg_more.jpg" alt="" />
+        </a>
+    </div>
+</div>
