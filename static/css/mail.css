@@ -1,0 +1,41 @@
+.mail-form{
+	margin: 20px;
+}
+
+.mail p{
+	display: block;
+	float:left;
+	width: 100%;
+	padding: 0;
+	margin: 10px 0;
+}
+.mail span{
+	display: block;
+	float: left;
+	width: 80px;
+	text-align: right;
+}
+.mail ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+.mail ul li{
+	display: block;
+	float:left;
+}
+.file{
+	display: block;
+}
+.parts-mail{
+	height: 64px;
+	overflow: hidden;
+}
+#id_title, #id_body{width: 600px}
+#id_submit{width: 100px; height: 30px;margin-left: 80px;}
+#id_add_file, #id_show_all{margin: 0 0 0 80px; padding:0;}
+#filebox{margin-top: -5px;}
+#mailbox{
+	padding-left: 80px;
+}

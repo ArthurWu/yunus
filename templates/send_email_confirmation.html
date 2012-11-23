@@ -1,0 +1,92 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% load url from future %}
+{% load admin_urls %}
+
+{% block extrahead %}
+<link href="/static/css/mail.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript">
+function addfile()
+{
+    var filebox = document.getElementById("filebox");
+    var file = document.createElement("input");
+    file.type = "file";
+    file.className = "file";
+    file.name = "attachment";
+    filebox.appendChild(file);
+    return false;
+}
+function showallemail(){
+    var mails = document.getElementById("id_mail_address");
+    var show_all = document.getElementById("id_show");
+
+    if(mails.className == "parts-mail"){
+        mails.className = "";
+        show_all.innerText = "展开";
+    }
+    else{
+        mails.className = "parts-mail";    
+        show_all.innerText = "收起";
+    }
+    return false;
+}
+</script>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ app_label|capfirst }}</a>
+&rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst|escape }}</a>
+&rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}{{ object.pk }}">{{ object|truncatewords:"18" }}</a>
+&rsaquo; 发送邮件
+</div>
+{% endblock %}
+
+{% block content %}
+    
+    <form class="mail-form" action="" method="post">{% csrf_token %}
+        <div class="mail">
+            <p>
+                <span>发件人：</span>
+                <span>175040128@.qq.com</span>
+            </p>
+            <div>
+                <span>收件人：</span>
+                <div id="mailbox">
+                <ul id="id_mail_address" {% if queryset|length > 80 %}class="parts-mail"{% endif %}>
+                    {% for row in queryset %}<li>{{row.email}};&ensp;</li>{% endfor %}
+                </ul>
+                </div>
+                {% if queryset|length > 80 %}
+                <p id="id_show_all">
+                    <a id="id_show" href="#" onclick="showallemail()">展开</a>
+                </p>
+                {% endif %}
+            </div>
+            <p>
+                <span>主题：</span>
+                <input name="title" class="vTextField" type="text" id="id_title" />
+            </p>
+            <p>
+                <span>附件：</span>
+                <span id="filebox">
+                    <input id="id_attachment" class="file" type="file" name="attachment" />
+                </span>
+            </p>
+            <p id="id_add_file">
+                <a href="#" onclick="addfile()">添加附件</a>
+            </p>
+            <p>
+                <span>正文：</span>
+                <textarea id="id_body" rows="10" cols="80" name="body" class="vLargeTextField"></textarea>
+            </p>
+        </div>
+        <div style="clear:both"></div>
+        <div>
+            <input type="hidden" name="post" value="yes" />
+            <input type="submit" value="发送" id="id_submit" />
+        </div>
+    </form>
+    
+{% endblock %}
