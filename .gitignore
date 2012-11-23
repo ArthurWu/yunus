@@ -4,5 +4,5 @@
 yunus.db
 docs
 local_settings.py
-media/*.*
-media/*/*.*
+media
+upload

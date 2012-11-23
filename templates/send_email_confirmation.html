@@ -45,7 +45,7 @@ function showallemail(){
 
 {% block content %}
     
-    <form class="mail-form" action="" method="post">{% csrf_token %}
+    <form class="mail-form" action="/send_emails/" method="post" enctype="multipart/form-data">{% csrf_token %}
         <div class="mail">
             <p>
                 <span>发件人：</span>
@@ -84,7 +84,9 @@ function showallemail(){
         </div>
         <div style="clear:both"></div>
         <div>
+            <input type="hidden" name="ids" value="{% for i in queryset %}{{i.id}},{% endfor %}" />
             <input type="hidden" name="post" value="yes" />
+            <input type="hidden" name="action" value="send_emails">
             <input type="submit" value="发送" id="id_submit" />
         </div>
     </form>

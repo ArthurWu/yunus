@@ -3,6 +3,13 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger
 from centre.models import Menu, Article, Subscription
+from django.core.mail import EmailMessage
+from os import path
+import logging
+log = logging.getLogger()
+
+from yunus.settings import PROJECT_DIR
+UPLOAD_DIR = path.abspath(path.join(PROJECT_DIR, '../upload/'))
 
 TOP_NUMBER = 5
 
@@ -38,6 +45,36 @@ def subscibe(request):
     Subscription(email=email).save()
 
     return render(request, 'subscibe_success.html', locals())
+
+def _upload(file):
+    filepath = UPLOAD_DIR+'\\'+file.name
+    attach = open(filepath, 'wb+')
+    for chunk in file.chunks():
+        attach.write(chunk)
+    attach.close()
+    return filepath
+
+def send_emails(request):
+    import json
+    ids = request.POST.get('ids', '')
+    objs = Subscription.objects.filter(id__in = json.loads('['+ids.strip(',')+']'))
+    if objs:
+        subject = request.POST.get('title', '')
+        body = request.POST.get('body', '')
+        from_email = '175040128@qq.com'
+        recipient_list = [i.email for i in objs]
+        attachment = request.FILES['attachment']
+        file_path = _upload(attachment)
+
+        msg = EmailMessage(subject, body, from_email, recipient_list)
+        msg.attach_file(file_path)
+        try:
+            msg.send()
+        except Exception:
+            return HttpResponse('邮件发送失败！')
+        return HttpResponse('邮件发送成功！')
+
+    return HttpResponse('sended email!')
 
 def menu(request, id):
     menu = get_object_or_404(Menu, pk=id)
