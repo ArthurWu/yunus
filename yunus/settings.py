@@ -136,6 +136,23 @@ INSTALLED_APPS = (
     'centre',
 )
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'arthur.wu.34@gmail.com'
+EMAIL_HOST_PASSWORD = 'wenjin34'
+EMAIL_USE_TLS = True
+
+# EMAIL_HOST = 'smtp.qq.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = '175040128@qq.com'
+# EMAIL_HOST_PASSWORD = 'wuzhanghai1120'
+# EMAIL_USE_TLS = True
+
+# EMAIL_HOST = 'smtp.163.com'
+# EMAIL_PORT = 25
+# EMAIL_HOST_USER = 'wzh_34@163.com'
+# EMAIL_HOST_PASSWORD = 'wenjin'
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
@@ -144,23 +161,55 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {  
+  
+            'format': '%(asctime)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d] [%(levelname)s]- %(message)s'  
+        },  
+    },
     'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
+        # 'require_debug_false': {
+            # '()': 'django.utils.log.RequireDebugFalse'
+        # }
     },
     'handlers': {
+        'default': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/mylog.log',
+            'maxBytes': 1024*1024*5, # 5 MB
+            'backupCount': 5,
+            'formatter':'standard',
+        },  
+        'request_handler': {
+                'level':'DEBUG',
+                'class':'logging.handlers.RotatingFileHandler',
+                'filename': 'logs/django_request.log',
+                'maxBytes': 1024*1024*5, # 5 MB
+                'backupCount': 5,
+                'formatter':'standard',
+        },
         'mail_admins': {
             'level': 'ERROR',
-            'filters': ['require_debug_false'],
+            #'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        }        
     },
     'loggers': {
+         '': {
+            'handlers': ['default'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
         'django.request': {
+            'handlers': ['request_handler'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.mailadmin':{
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
-        },
+        }
     }
 }
