@@ -1,3 +1,4 @@
+{% load tran %}
 <div class="box">
     <div class="box-title">
         <span class="left">{{item.name_english}}</span>
@@ -9,9 +10,9 @@
             <li class="{% if line.first %}no-triangle{% endif %}">
                 {% if line.first %}
                 <a href="/centre/article/{{line.id}}"><img src="/media/{{line.image}}" alt="" /></a>
-                <a href="/centre/article/{{line.id}}">{{line.title}}</a>
+                <a href="/centre/article/{{line.id}}">{% tran line "title" request.LANGUAGE_CODE %}</a>
                 {% else %}
-                <a href="/centre/article/{{line.id}}">{{line.title}}</a>
+                <a href="/centre/article/{{line.id}}">{% tran line "title" request.LANGUAGE_CODE %}</a>
                 {% endif %}
             </li>
             {% endfor %}

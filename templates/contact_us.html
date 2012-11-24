@@ -67,7 +67,9 @@
 		<div class="clear"></div>
     </div>
     <div class="subscription">
-    	<span>订阅我们的最新动态</span><br>
+    	<span>
+    	{% if request.LANGUAGE_CODE == 'zh-cn' %}订阅我们的最新动态{% else %}Subscript our latest news{% endif %}
+    	</span><br>
     	<form action="/subscibe">
 	    	<input class="text" type="text" name="email" />
 	    	<input class="btn" type="Submit" value=""/>

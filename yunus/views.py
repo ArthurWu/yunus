@@ -76,6 +76,27 @@ def send_emails(request):
 
     return HttpResponse('sended email!')
 
+def change_language(request):
+    next = request.REQUEST.get('next', None)
+    if not next:
+        next = request.META.get('HTTP_REFERER', None)
+    if not next:
+        next = '/'
+
+    from django import http
+    response = http.HttpResponseRedirect(next)
+
+    lang_code = request.LANGUAGE_CODE
+    lang_code = 'en' if lang_code == 'zh-cn' else 'zh-cn'
+    if hasattr(request, 'session'):
+        request.session['django_language'] = lang_code
+    else:
+        from django.conf import settings
+        response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
+
+    log.error('language: '+request.session['django_language'])
+    return response
+
 def menu(request, id):
     menu = get_object_or_404(Menu, pk=id)
     sub_menus = Menu.objects.filter(parent__id=id)

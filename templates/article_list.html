@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load tran %}
 
 {% block styles %}
 <link href="/static/css/article.css" type="text/css" rel="stylesheet" />
@@ -11,8 +12,8 @@
 {% block navigation %}
 <div class="navigation">
     <span class="right">
-        <a href="/">首页</a>>>
-        <a href="/menu/{{menu.id}}">{{menu.name}}</a>
+        <a href="/">{% if request.LANGUAGE_CODE == 'zh-cn' %}首页{% else %}Home{% endif %}</a>>>
+        <a href="/menu/{{menu.id}}">{% tran menu "name" request.LANGUAGE_CODE %}</a>
     </span>
 </div>
 {% endblock %}
@@ -25,12 +26,12 @@
             {% if sub_menus %}
                 {% for menuitem in sub_menus %}
                 <span class="tab-header {% if menuitem.id  == selected_menu_id %}selected-tab{% endif %}">
-                    <a href="/menu/{{menu.id}}/{{menuitem.id}}">{{menuitem.name}}</a>
+                    <a href="/menu/{{menu.id}}/{{menuitem.id}}">{% tran menuitem "name" request.LANGUAGE_CODE %}</a>
                 </span>
                 {% endfor %}
             {% else %}
                 <span class="tab-header selected-tab">
-                    <a href="/menu/{{menu.id}}">{{menu.name}}</a>
+                    <a href="/menu/{{menu.id}}">{% tran menu "name" request.LANGUAGE_CODE %}</a>
                 </span>
             {% endif %}
             <div class="clear"></div>
@@ -42,9 +43,9 @@
                 <li>
                     <img class="img-left" src="/media/{{article.image}}" alt="" />
                     <span class="item-info">
-                        <a class="none-style" href="/centre/article/{{article.id}}"><span class="item-title">{{article.title}}</span></a>
-                        <span class="item-date">专题 | {{article.created|date:"Y-m-d H:s"}}</span>
-                        <span class="item-summary">{{article.body}}</span>
+                        <a class="none-style" href="/centre/article/{{article.id}}"><span class="item-title">{% tran article "title" request.LANGUAGE_CODE %}</span></a>
+                        <span class="item-date">{% tran article.menu "name" request.LANGUAGE_CODE %} | {{article.created|date:"Y-m-d H:s"}}</span>
+                        <span class="item-summary">{% tran article "body" request.LANGUAGE_CODE %}</span>
                     </span>
                 </li>
                 <li class="item-split"><hr /></li>
@@ -53,7 +54,7 @@
                 <li class="pagination">
                     {% if articles.has_previous %}
                     <span class="last-page">
-                        <a href="?page={{ articles.previous_page_number }}">上一页</a>
+                        <a href="?page={{ articles.previous_page_number }}">{% if request.LANGUAGE_CODE == 'zh-cn' %}上一页{% else %}Previou{% endif %}</a>
                     </span>
                     {% endif %}
 
@@ -65,7 +66,7 @@
 
                     {% if articles.has_next %}
                     <span class="next-page">
-                        <a href="?page={{ articles.next_page_number }}">下一页</a>
+                        <a href="?page={{ articles.next_page_number }}">{% if request.LANGUAGE_CODE == 'zh-cn' %}下一页{% else %}Next{% endif %}</a>
                     </span>
                     {% endif %}
                 </li>

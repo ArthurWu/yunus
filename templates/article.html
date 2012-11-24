@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load tran %}
 {% block styles %}
 <link href="/static/css/article.css" type="text/css" rel="stylesheet" />
 {% endblock %}
@@ -6,16 +7,26 @@
 {% block slide_images %}
 <img src="/static/image/media_centre.jpg" />
 {% endblock %}
+
+{% block navigation %}
+<div class="navigation">
+    <span class="right">
+        <a href="/">{% if request.LANGUAGE_CODE == 'zh-cn' %}首页{% else %}Home{% endif %}</a>>>
+        <a href="/menu/{{article.menu.id}}">{% tran article.menu "name" request.LANGUAGE_CODE %}</a>
+    </span>
+</div>
+{% endblock %}
+
 {% block content %}
 <div class="clear"></div>
 <div id="art-cont">
 	<div class="article-list">
-		<div id="title">{{article.title}}</div>
+		<div id="title">{% tran article "title" request.LANGUAGE_CODE %}</div>
 		<div id="date">
-			<span>{{article.menu.name}}</span> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+			<span>{% tran article.menu "name" request.LANGUAGE_CODE %}</span> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 			<span>{{article.created|date:"Y-m-d H:s" }}</span>
 		</div>
-		<div id="body">{{article.body}}</div>
+		<div id="body">{% tran article "body" request.LANGUAGE_CODE %}</div>
 	</div>
 	<div class="side-bar">
         <div class="box-title side-bar-title">
