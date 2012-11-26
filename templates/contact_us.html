@@ -2,6 +2,9 @@
 {% block styles %}
 <link href="/static/css/contact.css" type="text/css" rel="stylesheet" />
 {% endblock %}
+{% block scripts %}
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+{% endblock %}
 {% block slide_images %}
 <img src="/static/image/contact.jpg" width="980" height="241" />
 {% endblock %}
@@ -51,29 +54,46 @@
 			<a href=""><img src="/static/image/douban.jpg" title="豆瓣" /></a>
 			<a href=""><img src="/static/image/renren.jpg" title="人人网" /></a>
 		</span>
-
-		<!-- JiaThis Button BEGIN 
-		<div class="jiathis_style_24x24 share">
-			<a class="jiathis_button_tsina"></a>
-			<a class="jiathis_button_tqq"></a>
-			<a class="jiathis_button_tumblr"></a>
-			<a class="jiathis_button_douban"></a>
-			<a class="jiathis_button_renren"></a>
-			<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-			<a class="jiathis_counter_style"></a>
-		</div>
-		<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1344352813010593" charset="utf-8"></script>
-		JiaThis Button END -->
 		<div class="clear"></div>
     </div>
     <div class="subscription">
     	<span>
     	{% if request.LANGUAGE_CODE == 'zh-cn' %}订阅我们的最新动态{% else %}Subscript our latest news{% endif %}
     	</span><br>
-    	<form action="/subscibe">
-	    	<input class="text" type="text" name="email" />
-	    	<input class="btn" type="Submit" value=""/>
-    	</form>
+    	<form id="id_subscibe_form" action="/subscibe">{% csrf_token %}
+	    	<input id="id_email" class="text" type="text" name="email" value="输入您的邮箱" 
+	    		onfocus="if(this.value=='输入您的邮箱')this.value=''">
+	    	<input id="id_subscibe_submit" class="btn" type="submit" value=""/>
+    	</form><br>
+    	<div id="id-sub-info" class="none clear"></div>
+    	<script type="text/javascript">
+    		$('#id_subscibe_submit').click(function(e){
+    			e.preventDefault();
+    			var email = $('#id_email').val();
+    			if( email == '' || email == '输入您的邮箱' )
+    			{
+    				$('#id-sub-info').text('必须输入您的邮箱才能提交！').addClass('red').removeClass('grad').show();
+    			}
+    			else{
+	    			var form = $('#id_subscibe_form');
+	    			form.submit(function(){return false;})
+
+	    			var data = {
+	    				csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+	    				email: $('id_email').val()
+	    			};
+	    			$.post(
+	    				'/subscibe',
+	    				data,
+	    				function(){
+	    					$('#id-sub-info').text('邮件订阅成功！').show().addClass('grad').removeClass('red').fadeOut(5000, function(){
+	    						$('#id_email').val('输入您的邮箱');
+	    					});
+	    				}
+	    			);
+    			}
+    		});
+    	</script>
     </div>
 </div>
 {% endblock %}

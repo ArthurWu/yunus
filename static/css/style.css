@@ -58,6 +58,9 @@ img, a img{ border: none;}
     font-weight: blod;
 }
 
+.red{color: red;}
+.grad{ color: #888;}
+.none{display: none;}
 .clear{ clear: both; }
 .left{ float: left; display: block;}
 .right{ float: right; display: block; }

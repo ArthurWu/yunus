@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
+{% block scripts %}
+<script type="text/javascript" src="/static/script/images.display.js"></script>
+<script type="text/javascript">
+window.onload = function(){
+    {% for img in home_images %}
+    PImgPlayer.addItem( "", "/centre/article/{{img.articles.id}}", "/media/{{img.image}}");
+    {% endfor %}
+    PImgPlayer.init( "id_images_player", 980, 512 );
+};
+</script>
+{% endblock %}
 
 {% block slide_images %}
-<img src="/static/image/home.jpg" />
+<div id="id_images_player"></div>
 {% endblock %}
 
 {% block navigation %}{% endblock %}

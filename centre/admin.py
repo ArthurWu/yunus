@@ -2,20 +2,30 @@
 from centre.models import *
 from django.contrib import admin
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.contrib.admin.actions import delete_selected as _delete_selected
 
 class ArticleAdmin(admin.ModelAdmin):
-    fields = ('menu','title','title_english','summary','summary_english', 'body','body_english', 'image')
-    list_display = ('title', 'menu','created','modified')
-    
-    list_filter = ('menu',)
-    
+	fields = ('menu','title','title_english','summary','summary_english', 'body','body_english', 'image')
+	list_display = ('title', 'menu','created','modified')
+	
+	list_filter = ('menu',)
+	
 admin.site.register(Article, ArticleAdmin)
 
 class MenuAdmin(admin.ModelAdmin):
-    fields = ('name', 'name_english', 'parent', 'order', 'deletable')
-    list_display = ('name', 'name_english', 'parent', 'order', 'deletable')
-    list_filter = ('parent',)
-    list_editable = ('name_english', 'order')
+	fields = ('name', 'name_english', 'parent', 'image', 'order', 'deletable')
+	list_display = ('name', 'name_english', 'parent', 'order', 'deletable')
+	list_filter = ('parent',)
+	list_editable = ('name_english', 'order')
+	actions = ['delete_selected',]
+
+	def delete_selected(self, request, queryset):
+		cannot_delete = [obj for obj in queryset if not obj.deletable]
+		if cannot_delete:
+			return HttpResponse('can not delete this menu!')
+
+		return _delete_selected(self, request, queryset)
 
 admin.site.register(Menu, MenuAdmin)
 

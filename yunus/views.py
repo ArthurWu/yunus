@@ -2,7 +2,7 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger
-from centre.models import Menu, Article, Subscription
+from centre.models import Menu, Article, Subscription, HomePicture
 from django.core.mail import EmailMessage
 from os import path
 import logging
@@ -20,8 +20,9 @@ def home(request):
 
     miniature_articles = _set_first(miniature.articles.all().order_by('created')[:TOP_NUMBER])
     social_articles = _set_first(social.articles.all().order_by('created')[:TOP_NUMBER])
+    home_images = HomePicture.objects.all().order_by('order')
     #join_us_articles = _set_first(join_us.articles.all().order_by('created')[:TOP_NUMBER])
-    return render(request, 'about_us.html', locals())
+    return render(request, 'index.html', locals())
 
 def about_us(request):
     return render(request, 'about_us.html', locals())
@@ -30,7 +31,11 @@ def contact_us(request):
     return render(request, 'contact_us.html')
 
 def search(request):
+    import datetime
     from django.db.models import Q
+
+    s = datetime.datetime.now()
+
     q = request.GET.get('q', '')
     results = Article.objects.filter(
         Q(title__contains=q) |
@@ -38,6 +43,9 @@ def search(request):
         Q(body__contains=q) |
         Q(body_english__contains=q)
     )
+
+    e = datetime.datetime.now()
+    seconds = abs((s-e).total_seconds())
     return render(request, 'search_result.html', locals())
 
 def subscibe(request):
