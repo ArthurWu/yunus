@@ -26,7 +26,7 @@ class Article(models.Model):
     summary_english = models.TextField(u'英文概要')
     body = models.TextField(u'内容')
     body_english = models.TextField(u'英文内容', blank=True)
-    image = models.ImageField(u'图片', upload_to="articles")
+    #image = models.ImageField(u'图片', upload_to="articles")
     created = models.DateTimeField(u'新建日期', auto_now_add=True)
     modified = models.DateTimeField(u'最后修改日期', auto_now=True)
     
@@ -51,7 +51,7 @@ class Subscription(models.Model):
         return self.email
 
 class HomePicture(models.Model):
-    image = models.ImageField(upload_to="home", verbose_name=u"图片")
+    #image = models.ImageField(upload_to="home", verbose_name=u"图片")
     articles = models.OneToOneField(Article, verbose_name=u'关联文章')
     order = models.IntegerField(u"排序")
 

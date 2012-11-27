@@ -6,3 +6,5 @@ docs
 local_settings.py
 media
 upload
+admin.py
+modles.py
