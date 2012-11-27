@@ -37,9 +37,10 @@
     visibility: hidden;
     margin: 0;
     padding: 0;
-    background: #EAEBD8;
+    /*background: #EAEBD8;*/
     border-top: 1px solid #FFF;
     z-index: 100;
+    min-width: 120px;
 }
 
 #menus div a
@@ -59,5 +60,5 @@
 #menus div a:hover
 {
     background: #A0A0A0;
-    color: #a2b973;
+    color: #FFF;
 }

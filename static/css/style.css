@@ -80,7 +80,7 @@ img, a img{ border: none;}
     z-index: 1;
 }
 .bgwraper{
-    background-image: url(/static/image/bg_content_center.jpg);
+    background-image: url(/static/image/bg_content.png);
     background-repeat: repeat-y;
     background-attachment:fixed;
     background-position: center;
