@@ -5,7 +5,7 @@ class Menu(models.Model):
     name = models.CharField(u'名称', max_length=50)
     name_english = models.CharField(u'英文名称', max_length=50, blank=True)
     order = models.IntegerField(u'排序')
-    image = models.ImageField(u'图片', upload_to="menu", blank=True, help_text=u"图片大小为980px x 240px, 否则页面布局会出现不协调")
+    #image = models.ImageField(u'图片', upload_to="menu", blank=True, help_text=u"图片大小为980px x 240px, 否则页面布局会出现不协调")
     parent = models.ForeignKey('Menu', verbose_name= u'父级', null=True, blank=True, related_name='menu_items')
     deletable = models.BooleanField(u'是否可删除', default=True)
     

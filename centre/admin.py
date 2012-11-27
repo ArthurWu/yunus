@@ -14,7 +14,7 @@ class ArticleAdmin(admin.ModelAdmin):
 admin.site.register(Article, ArticleAdmin)
 
 class MenuAdmin(admin.ModelAdmin):
-	fields = ('name', 'name_english', 'parent', 'image', 'order', 'deletable')
+	fields = ('name', 'name_english', 'parent', 'order', 'deletable')
 	list_display = ('name', 'name_english', 'parent', 'order', 'deletable')
 	list_filter = ('parent',)
 	list_editable = ('name_english', 'order')
