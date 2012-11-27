@@ -1,5 +1,29 @@
 {% extends 'base.html' %}
+{% load tran %}
 
+{% block styles %}
+<style type="text/css">
+#id_results{
+	padding: 20px;
+}
+#id_title{margin: 5px 0;}
+#id_title a{
+	text-decoration: none;
+	color: #a2b973;
+	font-size: 16px;
+	font-weight: bold;
+}
+#id_body, #id_summary{
+	font-size: 12px;
+	color: #555555;
+	margin-bottom: 15px;
+}
+#id_summary{
+	margin-bottom: 10px;
+	font-size: 13px;
+}
+</style>
+{% endblock %}
 {% block slide_images %}
 {% endblock %}
 
@@ -12,5 +36,14 @@
 </div>
 {% endblock %}
 {% block content %}
-{{results}}
+
+<div id="id_results">
+<div id="id_summary">找到结果 {{results.count}} 条, 用时 {{seconds}} 秒</div>
+{% for res in results %}
+<div id="id_result">
+	<div id="id_title"><a href="/centre/article/{{res.id}}">{% tran res "title" request.LANGUAGE_CODE%}</a></div>
+	<div id="id_body">{% tran res "body" request.LANGUAGE_CODE%}</div>
+</div>
+{% endfor %}
+</div>
 {% endblock %}

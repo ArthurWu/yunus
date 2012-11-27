@@ -50,6 +50,7 @@
 	padding: 0 5px;
 	border: none;
 	float: left;
+	color: #888;
 }
 .subscription input.btn{
 	background: url(/static/image/subscription-icon.jpg) no-repeat;
@@ -58,4 +59,11 @@
 	padding: 0px;
 	border: none;
 	float: right;
+}
+#id-sub-info{
+	background: #FCF8B3;
+	padding: 3px 10px;
+	width: 287px;
+	border-radius: 10px;
+	margin-top:10px;
 }
