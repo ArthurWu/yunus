@@ -6,7 +6,7 @@
 	</a></li>
 	{% for menu in menus %}
 	<li>
-		<a href="/menu/{{menu.id}}" {% if menu.has_child %}onclick="return false;"{% endif %} onmouseover="mopen('menuitems{{menu.id}}')" onmouseout="mclosetime()">{% tran menu "name" request.LANGUAGE_CODE %}</a>
+		<a href="/menu/{{menu.id}}" onmouseover="mopen('menuitems{{menu.id}}')" onmouseout="mclosetime()">{% tran menu "name" request.LANGUAGE_CODE %}</a>
 		{% if menu.menu_items.all %}
 		<div id="menuitems{{menu.id}}" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
 			{% for item in menu.menu_items.all %}

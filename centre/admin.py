@@ -10,6 +10,13 @@ class ArticleAdmin(admin.ModelAdmin):
 	list_display = ('title', 'menu','created','modified')
 	
 	list_filter = ('menu',)
+
+	class Media:
+		js = (
+			'tiny_mce/tiny_mce.js',
+			'script/textareas.js'
+		)
+
 	
 admin.site.register(Article, ArticleAdmin)
 

@@ -2,6 +2,8 @@
 import os
 PROJECT_DIR = os.path.dirname(__file__)
 DB_FILE = os.path.abspath(os.path.join(PROJECT_DIR, 'database/yunus.db'))
+STATIC_DIR = os.path.abspath(os.path.join(PROJECT_DIR, '../static'))
+MEDIA_DIR = os.path.abspath(os.path.join(PROJECT_DIR, '../media'))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -54,11 +56,13 @@ USE_TZ = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = os.path.abspath(os.path.join(PROJECT_DIR, '../media'))
+IMAGES_UPLOAD_DIR = 'uploads'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = '/media/'
+
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -75,8 +79,8 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.abspath(os.path.join(PROJECT_DIR, '../static')),
-    os.path.abspath(os.path.join(PROJECT_DIR, '../media')),
+    STATIC_DIR,
+    MEDIA_DIR,
 )
 
 # List of finder classes that know how to find static files in
@@ -139,7 +143,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    
     'centre',
+    'tinymce',
 )
 
 EMAIL_HOST = 'smtp.gmail.com'
@@ -164,6 +170,7 @@ EMAIL_USE_TLS = True
 # the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

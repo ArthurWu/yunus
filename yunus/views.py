@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger
 from centre.models import Menu, Article, Subscription, HomePicture
 from django.core.mail import EmailMessage
+from django.views.decorators.csrf import csrf_exempt
 from os import path
 import logging
 log = logging.getLogger()
@@ -16,12 +17,12 @@ TOP_NUMBER = 5
 def home(request):
     miniature = Menu.objects.get(name=u"微型企业")
     social = Menu.objects.get(name=u"社会企业")
-    #join_us = Menu.objects.get(name=u"加入我们")
+    about_us = Menu.objects.get(name=u"关于我们")
 
     miniature_articles = _set_first(miniature.articles.all().order_by('created')[:TOP_NUMBER])
     social_articles = _set_first(social.articles.all().order_by('created')[:TOP_NUMBER])
+    about_us_articles = _set_first(about_us.articles.all().order_by('created')[:TOP_NUMBER])
     home_images = HomePicture.objects.all().order_by('order')
-    #join_us_articles = _set_first(join_us.articles.all().order_by('created')[:TOP_NUMBER])
     return render(request, 'index.html', locals())
 
 def about_us(request):
@@ -107,19 +108,22 @@ def change_language(request):
 
 def menu(request, id):
     menu = get_object_or_404(Menu, pk=id)
-    sub_menus = Menu.objects.filter(parent__id=id)
+    sub_menus = Menu.objects.filter(parent__id=id).order_by('order')
     articles_list = Article.objects.filter(menu_id=id)
+    if not articles_list and sub_menus:
+        articles_list = Article.objects.filter(menu_id=sub_menus[0].id)
     articles = _articles_paginator(request, articles_list)
     return render(request, 'article_list.html', 
         {
             'sub_menus': sub_menus, 
             'menu': menu, 
+            'selected_menu_id': sub_menus[0].id if sub_menus else 0,
             'articles': articles
         })
 
 def sub_menu(request, id, item_id):
     menu = get_object_or_404(Menu, pk=id)
-    sub_menus = Menu.objects.filter(parent__id=id)
+    sub_menus = Menu.objects.filter(parent__id=id).order_by('order')
     articles_list = Article.objects.filter(menu_id=item_id)
     articles = _articles_paginator(request, articles_list)
     return render(request, 'article_list.html', 
@@ -129,6 +133,35 @@ def sub_menu(request, id, item_id):
             'selected_menu_id': int(item_id),
             'menu': menu
         })
+
+@csrf_exempt
+def upload_image(request):  
+    from settings import MEDIA_URL, IMAGES_UPLOAD_DIR
+    if request.method == 'POST':
+        if "upload_file" in request.FILES:  
+            f = request.FILES["upload_file"]  
+            parser = ImageFile.Parser()
+            for chunk in f.chunks():  
+                parser.feed(chunk)  
+            img = parser.close()  
+
+            #在img被保存之前，可以进行图片的各种操作，在各种操作完成后，在进行一次写操作
+            dt = datetime.now()
+            cur_dir = '%s_%s_%s' % (dt.year, dt.month, dt.day)
+            file_path = os.path.join(MEDIA_URL,IMAGES_UPLOAD_DIR, cur_dir)
+            if not os.path.exists(file_path):
+                os.mkdir(file_path)
+
+            file_name = '%s_%s_%s' % (dt.hour, dt.minute, dt.second)
+            thumb_fn = file_name+'_min'
+            f = os.path.join(file_path, file_name)
+            tf = os.path.join(file_path, thumb_fn)
+            new_img=img.resize((120,120), Image.ANTIALIAS)
+            new_img.save(tf+'.jpg','JPEG')
+            img.save(f+'.jpg','JPEG')
+            return HttpResponse('%s%s/%s/%s.jpg' % (STATIC_URL, IMAGES_UPLOAD_DIR, cur_dir, file_name))
+
+    return HttpResponse(u"Some error!Upload faild!格式：jpeg")
 
 def _articles_paginator(request, articles_list):
     paginator = Paginator(articles_list, 4) # Show 25 articles per page

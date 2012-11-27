@@ -18,6 +18,8 @@ urlpatterns = patterns('',
     url(r'^latest/feed/$', LatestArticleFeed()),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^upload_image/', 'yunus.views.upload_image'),
 )
 
 import settings

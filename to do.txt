@@ -6,3 +6,4 @@
 低		4. 相关链接（微博。。。）
 中		5. 防止固定菜单删除功能		done(not write the warring page)
 中		6. 菜单对应图片			done
+高		7. rich text edit in admin page
