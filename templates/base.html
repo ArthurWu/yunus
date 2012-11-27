@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -8,7 +10,7 @@
     <script type="text/javascript" src="/static/script/menus.js"></script>
     {% block scripts %}{% endblock %}
 </head>
-<body>
+<body><div>{{requst.LANGUAGE_CODE}}</div>
     <div id="header">
         <div id="logo">
             <a href="/">
@@ -30,7 +32,9 @@
         <div class="bgwraper">
             <div id="content">
                 <span class="slide-iamges">
-                    {% block slide_images %}{% endblock %}
+                {% block slide_images %}
+                    
+                {% endblock %}
                 </span>
                 
                 {% block navigation %}
@@ -53,8 +57,9 @@
                 <script type="text/javascript">
                     function change_language()
                     {
+                        var now = new Date();
                         change_link = document.getElementById("id_change_lang");
-                        redirect = change_link.href + "?next=" + window.location.href;
+                        redirect = change_link.href + "?next=" + window.location.href + "&_=" + now.getTime();
                         window.location = redirect;
                         return false;
                     }

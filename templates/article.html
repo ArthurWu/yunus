@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block slide_images %}
-<img src="/static/image/media_centre.jpg" />
+<img src="/media/{% if article.menu.parent %}{{article.menu.parent.image}}{% endif %}" width="980" height="240  " />
 {% endblock %}
 
 {% block navigation %}
