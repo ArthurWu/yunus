@@ -30,7 +30,8 @@ class Article(models.Model):
     image = models.ImageField(u'图片', upload_to="articles", help_text=u"图片大小为980px x 240px, 否则页面布局会出现不协调")
     created = models.DateTimeField(u'新建日期', auto_now_add=True)
     modified = models.DateTimeField(u'最后修改日期', auto_now=True)
-    
+    deletable = models.BooleanField(u'是否可删除', default=True)
+
     class Meta:
         verbose_name = u'文章'
         verbose_name_plural= u'文章'
@@ -53,7 +54,7 @@ class Subscription(models.Model):
 
 class HomePicture(models.Model):
     image = models.ImageField(upload_to="home", verbose_name=u"图片", help_text=u"图片大小为980px x 512px, 否则页面布局会出现不协调")
-    articles = models.OneToOneField(Article, verbose_name=u'关联文章')
+    articles = models.OneToOneField(Article, verbose_name=u'关联文章', help_text=u"多张图片不能同时关联到同一篇文章，图片和文章是一一对应的关系")
     order = models.IntegerField(u"排序")
 
     class Meta:

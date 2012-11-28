@@ -112,34 +112,41 @@ def menu(request, id):
     articles_list = Article.objects.filter(menu_id=id)
     if not articles_list and sub_menus:
         articles_list = Article.objects.filter(menu_id=sub_menus[0].id)
-    articles = _articles_paginator(request, articles_list)
+    page_num = 10
+    articles = _articles_paginator(request, articles_list, page_num)
     return render(request, 'article_list.html', 
         {
             'sub_menus': sub_menus, 
             'menu': menu, 
             'selected_menu_id': sub_menus[0].id if sub_menus else 0,
-            'articles': articles
+            'articles': articles,
+            'mutilpages': page_num <= len(articles)
         })
 
 def sub_menu(request, id, item_id):
     menu = get_object_or_404(Menu, pk=id)
     sub_menus = Menu.objects.filter(parent__id=id).order_by('order')
     articles_list = Article.objects.filter(menu_id=item_id)
-    articles = _articles_paginator(request, articles_list)
+    page_num = 10
+    articles = _articles_paginator(request, articles_list, page_num)
     return render(request, 'article_list.html', 
         {
             'sub_menus': sub_menus, 
             'articles': articles, 
             'selected_menu_id': int(item_id),
-            'menu': menu
+            'menu': menu,
+            'mutilpages': page_num <= len(articles)
         })
 
 @csrf_exempt
 def upload_image(request):  
-    from settings import MEDIA_URL, IMAGES_UPLOAD_DIR
+    from settings import MEDIA_DIR, IMAGES_UPLOAD_DIR, MEDIA_URL
     if request.method == 'POST':
         if "upload_file" in request.FILES:  
             f = request.FILES["upload_file"]  
+            from PIL import ImageFile, Image
+            import os
+            from datetime import datetime
             parser = ImageFile.Parser()
             for chunk in f.chunks():  
                 parser.feed(chunk)  
@@ -148,7 +155,7 @@ def upload_image(request):
             #在img被保存之前，可以进行图片的各种操作，在各种操作完成后，在进行一次写操作
             dt = datetime.now()
             cur_dir = '%s_%s_%s' % (dt.year, dt.month, dt.day)
-            file_path = os.path.join(MEDIA_URL,IMAGES_UPLOAD_DIR, cur_dir)
+            file_path = os.path.join(MEDIA_DIR,IMAGES_UPLOAD_DIR, cur_dir)
             if not os.path.exists(file_path):
                 os.mkdir(file_path)
 
@@ -159,12 +166,12 @@ def upload_image(request):
             new_img=img.resize((120,120), Image.ANTIALIAS)
             new_img.save(tf+'.jpg','JPEG')
             img.save(f+'.jpg','JPEG')
-            return HttpResponse('%s%s/%s/%s.jpg' % (STATIC_URL, IMAGES_UPLOAD_DIR, cur_dir, file_name))
+            return HttpResponse('%s%s/%s/%s.jpg' % (MEDIA_URL, IMAGES_UPLOAD_DIR, cur_dir, file_name))
 
     return HttpResponse(u"Some error!Upload faild!格式：jpeg")
 
-def _articles_paginator(request, articles_list):
-    paginator = Paginator(articles_list, 4) # Show 25 articles per page
+def _articles_paginator(request, articles_list, page_num):
+    paginator = Paginator(articles_list, page_num) # Show 25 articles per page
 
     page = request.GET.get('page')
     try:

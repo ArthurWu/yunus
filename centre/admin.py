@@ -1,7 +1,7 @@
 # encoding: utf-8
 from centre.models import *
 from django.contrib import admin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.admin.actions import delete_selected as _delete_selected
 
@@ -17,7 +17,15 @@ class ArticleAdmin(admin.ModelAdmin):
 			'script/textareas.js'
 		)
 
-	
+	def delete_selected(self, request, queryset):
+		cannot_delete = [obj for obj in queryset if not obj.deletable]
+		if not cannot_delete:
+			from django.contrib import messages
+			messages.add_message(request, messages.ERROR, u'此文章是网站固定的网站内容，不能删除！')
+			return redirect('/admin/centre/article/')
+
+		return _delete_selected(self, request, queryset)
+
 admin.site.register(Article, ArticleAdmin)
 
 class MenuAdmin(admin.ModelAdmin):
@@ -29,8 +37,10 @@ class MenuAdmin(admin.ModelAdmin):
 
 	def delete_selected(self, request, queryset):
 		cannot_delete = [obj for obj in queryset if not obj.deletable]
-		if cannot_delete:
-			return HttpResponse('can not delete this menu!')
+		if not cannot_delete:
+			from django.contrib import messages
+			messages.add_message(request, messages.ERROR, u'此菜单为内置菜单，不能删除！')
+			return redirect('/admin/centre/menu/')
 
 		return _delete_selected(self, request, queryset)
 

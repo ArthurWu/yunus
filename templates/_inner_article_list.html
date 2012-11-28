@@ -19,7 +19,7 @@
         </ul>
     </div>
     <div class="box-more clear">
-        <a href="/menu/{{item.parent.id}}/{{item.id}}">
+        <a href="/menu/{%if item.parent%}{{item.parent.id}}/{{item.id}}{%else%}{{item.id}}{%endif%}">
             <img src="/static/image/bg_more.jpg" alt="" />
         </a>
     </div>

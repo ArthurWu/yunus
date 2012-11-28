@@ -1,79 +1,114 @@
 [
   {
     "model": "centre.Article",
-    "pk": 1,
+    "pk": 0,
     "fields": {
-      "catalog": 1,
+      "menu": 1,
       "title": "关于尤努斯，我们能给你们提供什么帮助？",
       "title_english": "About Yunus, What can we help you?",
+      "summary": "新浪娱乐讯",
+      "summary_english": "we are the gode",
       "body": "新浪娱乐讯",
       "body_english": "we are the gode",
       "created": "2012-10-12 00:00",
-      "modified": "2012-10-12 00:00"
+      "modified": "2012-10-12 00:00",
+      "deletable": false
+    }
+  },
+  {
+    "model": "centre.Article",
+    "pk": 1,
+    "fields": {
+      "menu": 1,
+      "title": "关于尤努斯，我们能给你们提供什么帮助？",
+      "title_english": "About Yunus, What can we help you?",
+      "summary": "新浪娱乐讯",
+      "summary_english": "we are the gode",
+      "body": "新浪娱乐讯",
+      "body_english": "we are the gode",
+      "created": "2012-10-12 00:00",
+      "modified": "2012-10-12 00:00",
+      "deletable": true
     }
   },
   {
     "model": "centre.Article",
     "pk": 2,
     "fields": {
-      "catalog": 1,
+      "menu": 1,
       "title": "关于尤努斯，我们能给你们提供什么帮助？",
       "title_english": "About Yunus, What can we help you?",
+      "summary": "新浪娱乐讯",
+      "summary_english": "we are the gode",
       "body": "新浪娱乐讯",
       "body_english": "we are the gode",
       "created": "2012-10-12 00:00",
-      "modified": "2012-10-12 00:00"
+      "modified": "2012-10-12 00:00",
+      "deletable": true
     }
   },
   {
     "model": "centre.Article",
     "pk": 3,
     "fields": {
-      "catalog": 1,
+      "menu": 1,
       "title": "关于尤努斯，我们能给你们提供什么帮助？",
       "title_english": "About Yunus, What can we help you?",
+      "summary": "新浪娱乐讯",
+      "summary_english": "we are the gode",
       "body": "新浪娱乐讯",
       "body_english": "we are the gode",
       "created": "2012-10-12 00:00",
-      "modified": "2012-10-12 00:00"
+      "modified": "2012-10-12 00:00",
+      "deletable": true
     }
   },
   {
     "model": "centre.Article",
     "pk": 4,
     "fields": {
-      "catalog": 1,
+      "menu": 1,
       "title": "关于尤努斯，我们能给你们提供什么帮助？",
       "title_english": "About Yunus, What can we help you?",
+      "summary": "新浪娱乐讯",
+      "summary_english": "we are the gode",
       "body": "新浪娱乐讯",
       "body_english": "we are the gode",
       "created": "2012-10-12 00:00",
-      "modified": "2012-10-12 00:00"
+      "modified": "2012-10-12 00:00",
+      "deletable": true
     }
-  },{
+  },
+  {
     "model": "centre.Article",
     "pk": 5,
     "fields": {
-      "catalog": 1,
+      "menu": 1,
       "title": "关于尤努斯，我们能给你们提供什么帮助？",
       "title_english": "About Yunus, What can we help you?",
+      "summary": "新浪娱乐讯",
+      "summary_english": "we are the gode",
       "body": "新浪娱乐讯",
       "body_english": "we are the gode",
       "created": "2012-10-12 00:00",
-      "modified": "2012-10-12 00:00"
+      "modified": "2012-10-12 00:00",
+      "deletable": true
     }
   },
   {
     "model": "centre.Article",
     "pk": 6,
     "fields": {
-      "catalog": 1,
-      "title": "关于尤努斯，我们能给你们提供什么帮助？",
-      "title_english": "About Yunus, What can we help you?",
-      "body": "新浪娱乐讯",
-      "body_english": "we are the gode",
+      "menu": 1,
+      "title": "温家宝：请把我忘记！",
+      "title_english": "Wen Jiabao: Please Forget Me",
+      "summary": "中共领导人通常会尽其所能确保自己的名字能永留青史。他们想尽一切办法让自己标志性的思想理论，比如毛泽东思想，邓小平理论，江泽民的三个代表以及胡锦涛的科学发展观，永久地铭刻在中国的重要文献中...",
+      "summary_english": "Chinese Communist Party leaders typically do all they can to ensure their names earn a permanent spot in the history books, scratching and biting so their signature ideas Mao Zedong Thought, Deng Xiao ...",
+      "body": "<tbody><tr><td id=\"article_content\">Associated Press温家宝<br>中共领导人通常会尽其所能确保自己的名字能永留青史。他们想尽一切办法让自己标志性的思想理论，比如毛泽东思想，邓小平理论，江泽民的三个代表以及胡锦涛的科学发展观，永久地铭刻在中国的重要文献中。<br><br>但温家宝却不同，他希望大家就当他从未存在过一样。<br><br>相关报道在最近一次对泰国华人华侨的讲话中，温家宝的口气听来像是在做告别演说，尽管作为全球第二大经济体的掌舵人，他还有四个月的工作需要完成。这次讲话的视频在周三被放到了泰华网上。<br><br>这篇讲话令人印象深刻的并非其内容，而是温家宝在讲话结束前所说的一段话：<br><br>温家宝在即将结束讲话时引用了他最喜欢的诗人屈原的一首诗，并做了解释：为了追求真理，即使我死九次也不后悔；为了自己的清白，即使死也要死得诚实和正直。我希望人们把我忘记，包括华人华侨把我忘记。<br><br>咦？<br><br>虽然对于一个即将结束10年任期的领导人来说，讲话时动点感情也算合理，但上面这番话即使是出自一个远不如中国总理那样善于隐藏自己感情的人之口，也会显得非常奇怪。那么温家宝到底想说什么？<br><br>温家宝当然有理由要人们把他忘记。毕竟在过去数月内，他眼睁睁地看着在他引导下曾经创造增长神话的中国经济出现诸多问题并大幅放缓，并引发猜测说“中国奇迹”可能并没有像吹嘘的那样神。近来又有境外媒体报道温家宝的家人敛聚了大量财富。这样的重磅炸弹会让任何一位政界人士心生退出政治舞台并要求被人遗忘的想法，更不用说将自己塑造为一位改革者的人。<br><br>但我们也应该注意到，在讲话时善于戏剧性表现自己的谦逊可谓温家宝的天赋。目前出走国外的作家余杰在描述温家宝时也提到了这一特点，他说温家宝是“中国影帝”。所以从这个意义上说，或许温家宝只是试图利用听众的一点逆反心理：因为我不希望被人铭记，所以你会记住我。<br><br>无论如何，至少有一位中国公众人物坚持认为温家宝不会被人遗忘。周三晚上地产大亨任志强在新浪微博上写道：有些事是永远无法抹去的。<br><br>但不知道任志强指的是温家宝主政期间飙升的房价，还是温家宝后来努力打压房价，亦或是别的什么事情。<br></td></tr></tbody>",      
+      "body_english": "<table cellpadding=\"0\" cellspacing=\"0\" class=\"vwtb\"><tbody><tr><td id=\"article_content\">Chinese Communist Party leaders typically do all they can to ensure their names earn a permanent spot in the history books, scratching and biting so their signature ideas   Mao Zedong Thought, Deng Xiaoping Theory, Jiang Zemin's Three Represents, and the latest, Hu Jintao's Scientific Development   are inscribed indelibly in the country's seminal documents.<br><br>But not Premier Wen Jiabao. He prefers everyone just pretend he never existed.<br><br>In a recent speech to members of the Chinese community in Thailand, footage of which was posted to the website thaicn.com on Wednesday, Mr. Wen gave what sounded like farewell speech, despite having another four months at the helm of the world's second-largest economy.<br><br>What was remarkable about the speech was not so much its content as the way it ended.<br><br>'In the pursuit of truth, I would die nine times without regret. If I'm going to die, I want to die with honesty and integrity,' he said as he was wrapping up, a paraphrase of his favorite poet, Qu Yuan. To that he added: 'I hope everyone will forget me   that includes Chinese people and overseas Chinese. Forget me.'<br><br>Huh?<br><br>While it's not unreasonable for a leader approaching the end of 10 years in office to get emotional, this was an odd thing to statement even for a man far less reserved than China's stoic No. 2. So what was he trying to say?<br><br>Certainly Mr. Wen has reason to crave anonymity. After all, for the past several months, he's had to watch as the economic machine he once piloted to record growth has sputtered and slowed, stoking speculation that the China miracle might not be all it's cracked up to be. And then there was the recent foreign media report on his relatives' considerable holdings   the sort of bombshell that would make any politician, not to mention one who cultivated an image as a reformer, want to slip from the stage and be forgotten.<br><br>But it should also be noted that Mr. Wen has a flair for dramatic acts of rhetorical humility -  a tendency that fed into now-exiled writer Yu Jie's characterization of the premier as China's 'greatest actor.' So in that sense, maybe he was trying to employ a little reverse psychology: Remember me because I didn't want to be remembered.<br><br>In any case, at least one prominent Chinese citizen, real estate mogul Ren Zhiqiang, insisted that Mr. Wen would not be forgotten. 'Some things can never be erased,' he wrote Thursday night in a post on Sina Corp.'s Weibo microblogging service.<br><br>It wasn't clear if Mr. Ren was responding to the skyrocketing property prices that happened under Mr. Wen's watch, the premier's subsequent effort to push prices back down, or something else.<br></td></tr></tbody></table>",
       "created": "2012-10-12 00:00",
-      "modified": "2012-10-12 00:00"
+      "modified": "2012-10-12 00:00",
+      "deletable": true
     }
   }
 ]

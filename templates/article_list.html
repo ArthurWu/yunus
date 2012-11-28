@@ -45,12 +45,12 @@
                     <span class="item-info">
                         <a class="none-style" href="/centre/article/{{article.id}}"><span class="item-title">{% tran article "title" request.LANGUAGE_CODE %}</span></a>
                         <span class="item-date">{% tran article.menu "name" request.LANGUAGE_CODE %} | {{article.created|date:"Y-m-d H:s"}}</span>
-                        <span class="item-summary">{% tran article "body" request.LANGUAGE_CODE %}</span>
+                        <span class="item-summary">{% tran article "summary" request.LANGUAGE_CODE %}</span>
                     </span>
                 </li>
-                <li class="item-split"><hr /></li>
+                <li class="item-split clear"><hr /></li>
                 {% endfor %}
-                
+                {% if mutilpages %}
                 <li class="pagination">
                     {% if articles.has_previous %}
                     <span class="last-page">
@@ -70,7 +70,8 @@
                     </span>
                     {% endif %}
                 </li>
-                <li class="item-split"><hr /></li>
+                <li class="item-split clear"><hr /></li>
+                {% endif %}
                 {% endif %}
             </ul>
         </div>
