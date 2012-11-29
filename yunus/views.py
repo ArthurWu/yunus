@@ -2,10 +2,11 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger
-from centre.models import Menu, Article, Subscription, HomePicture
 from django.core.mail import EmailMessage
 from django.views.decorators.csrf import csrf_exempt
 from os import path
+from centre.models import Menu, Article, Subscription, HomePicture
+from centre.const import *
 import logging
 log = logging.getLogger()
 
@@ -15,9 +16,9 @@ UPLOAD_DIR = path.abspath(path.join(PROJECT_DIR, '../upload/'))
 TOP_NUMBER = 5
 
 def home(request):
-    miniature = Menu.objects.get(name=u"微型企业")
-    social = Menu.objects.get(name=u"社会企业")
-    about_us = Menu.objects.get(name=u"关于我们")
+    miniature = get_object_or_404(Menu, pk=MINIATURE_ENTERPRISE_ID)
+    social = get_object_or_404(Menu, pk=SOCIAL_ENTERPRISE_ID)
+    about_us = get_object_or_404(Menu, pk=ABOUT_US_ID)
 
     miniature_articles = _set_first(miniature.articles.all().order_by('created')[:TOP_NUMBER])
     social_articles = _set_first(social.articles.all().order_by('created')[:TOP_NUMBER])
@@ -29,7 +30,8 @@ def about_us(request):
     return render(request, 'about_us.html', locals())
 
 def contact_us(request):
-    return render(request, 'contact_us.html')
+    art = get_object_or_404(Article, pk=ABOUT_US_ARTICLE_ID)
+    return render(request, 'contact_us.html', locals())
 
 def search(request):
     import datetime
@@ -103,7 +105,6 @@ def change_language(request):
         from django.conf import settings
         response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
 
-    log.error('language: '+request.session['django_language'])
     return response
 
 def menu(request, id):
@@ -120,7 +121,8 @@ def menu(request, id):
             'menu': menu, 
             'selected_menu_id': sub_menus[0].id if sub_menus else 0,
             'articles': articles,
-            'mutilpages': page_num <= len(articles)
+            'mutilpages': page_num <= len(articles),
+            'request': request
         })
 
 def sub_menu(request, id, item_id):
@@ -135,7 +137,8 @@ def sub_menu(request, id, item_id):
             'articles': articles, 
             'selected_menu_id': int(item_id),
             'menu': menu,
-            'mutilpages': page_num <= len(articles)
+            'mutilpages': page_num <= len(articles),
+            'request': request
         })
 
 @csrf_exempt

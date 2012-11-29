@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load tran %}
 {% block styles %}
 <link href="/static/css/contact.css" type="text/css" rel="stylesheet" />
 {% endblock %}
@@ -12,25 +13,17 @@
 {% block navigation %}
 <div class="navigation">
     <span class="right">
-        <a href="/">首页</a>>>
-        <a href="/contact-us">联系我们</a>
+        <a href="/">{% if request.LANGUAGE_CODE == 'zh-cn' %}首页{% else %}Home{% endif %}</a>>>
+        <a href="/contact-us">{% if request.LANGUAGE_CODE == 'zh-cn' %}联系我们{% else %}Contact Us{% endif %}</a>
     </span>
 </div>
 {% endblock %}
 
 {% block content %}
 <div id="leftcontent">
-	<p>
-	四大范德萨发的说法接口的司法局都是范德萨飞的健身房速度快拉飞遁离俗反馈率
-	四大范德萨发的说法接口的司法局都是范德萨飞的健身房速度快拉飞遁离俗反馈率
-	四大范德萨发的说法接口的司法局都是范德萨飞的健身房速度快拉飞遁离俗反馈率
-	四大范德萨发的说法接口的司法局都是范德萨飞的健身房速度快拉飞遁离俗反馈率
-	四大范德萨发的说法接口的司法局都是范德萨飞的健身房速度快拉飞遁离俗反馈率
-	四大范德萨发的说法接口的司法局都是范德萨飞的健身房速度快拉飞遁离俗反馈率
-	四大范德萨发的说法接口的司法局都是范德萨飞的健身房速度快拉飞遁离俗反馈率
-	四大范德萨发的说法接口的司法局都是范德萨飞的健身房速度快拉飞遁离俗反馈率
-	四大范德萨发的说法接口的司法局都是范德萨飞的健身房速度快拉飞遁离俗反馈率
-	</p>
+
+	{% tran art "body" request.LANGUAGE_CODE %}
+	
 </div>
 <div id="rightcontent">
 	<div id="contact-box">

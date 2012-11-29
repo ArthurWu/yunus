@@ -42,7 +42,7 @@
 {% for res in results %}
 <div id="id_result">
 	<div id="id_title"><a href="/centre/article/{{res.id}}">{% tran res "title" request.LANGUAGE_CODE%}</a></div>
-	<div id="id_body">{% tran res "body" request.LANGUAGE_CODE%}</div>
+	<div id="id_body">{% tran res "summary" request.LANGUAGE_CODE %}</div>
 </div>
 {% endfor %}
 </div>

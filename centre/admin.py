@@ -8,8 +8,8 @@ from django.contrib.admin.actions import delete_selected as _delete_selected
 class ArticleAdmin(admin.ModelAdmin):
 	fields = ('menu','title','title_english','summary','summary_english', 'body','body_english', 'image')
 	list_display = ('title', 'menu','created','modified')
-	
 	list_filter = ('menu',)
+	actions = ['delete_selected',]
 
 	class Media:
 		js = (
@@ -19,9 +19,9 @@ class ArticleAdmin(admin.ModelAdmin):
 
 	def delete_selected(self, request, queryset):
 		cannot_delete = [obj for obj in queryset if not obj.deletable]
-		if not cannot_delete:
+		if cannot_delete:
 			from django.contrib import messages
-			messages.add_message(request, messages.ERROR, u'此文章是网站固定的网站内容，不能删除！')
+			messages.add_message(request, messages.ERROR, u'您选择中的，“%s”是网站固定的网站内容，不能删除！' % ','.join(i.title for i in queryset))
 			return redirect('/admin/centre/article/')
 
 		return _delete_selected(self, request, queryset)
@@ -37,9 +37,9 @@ class MenuAdmin(admin.ModelAdmin):
 
 	def delete_selected(self, request, queryset):
 		cannot_delete = [obj for obj in queryset if not obj.deletable]
-		if not cannot_delete:
+		if cannot_delete:
 			from django.contrib import messages
-			messages.add_message(request, messages.ERROR, u'此菜单为内置菜单，不能删除！')
+			messages.add_message(request, messages.ERROR, u'您选择中的菜单中，“%s”为内置菜单，不能删除！' % ','.join([i.name for i in queryset]))
 			return redirect('/admin/centre/menu/')
 
 		return _delete_selected(self, request, queryset)
