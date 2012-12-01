@@ -202,6 +202,9 @@ def _set_first(items):
 
     return items
 
+def _get_params(request, params):
+    return dict( (k, request.POST.get(k, '')) for k in params )
+
 def mail_config(request):
     title = u'邮箱配置'
     if request.method == 'POST':
@@ -213,9 +216,21 @@ def mail_config(request):
         inputs = {'host':host,'port':port,'user':user,'password':password,'use_tls': 1 if use_tls=='on' else 0 }
         utils.set_email_info(inputs)
         from django.contrib import messages
-        messages.add_message(request, messages.INFO, u'邮箱配置信息以保存！')
+        messages.add_message(request, messages.INFO, u'邮箱配置信息已保存成功！')
         return redirect(request.path)
 
     email = utils.get_email_info()
-
     return render(request, 'admin/mail_config.html', locals())
+
+def links(request):
+    title = u'友情链接'
+    if request.method == 'POST':
+        input_links = _get_params( request, ['sina', 'tengxun', 'tumblr', 'douban', 'renren', 'blog'] )
+        log.error(input_links)
+        utils.write_links(input_links)
+        from django.contrib import messages
+        messages.add_message(request, messages.INFO, u'友情链接信息已保存成功！')
+        return redirect(request.path)
+
+    links = utils.read_links()
+    return render(request, 'admin/links.html', locals())

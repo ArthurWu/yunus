@@ -1,0 +1,55 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
+{% endblock %}
+
+{% block content %}
+	<form method="post" action="">{% csrf_token %}
+	<div>
+		<fieldset class="module aligned ">
+	        <div class="form-row field-name">
+                <div>
+                    <label for="id_links_host" class="required">新浪微博:</label>
+                    <input name="sina" value="{{links.sina}}" class="vTextField" maxlength="50" type="text" id="id_links_host">
+                </div>
+	        </div>
+	        <div class="form-row field-name">
+                <div>
+                    <label for="id_name" class="required">腾讯微博:</label>
+                    <input name="tengxun" value="{{links.tengxun}}" class="vTextField" maxlength="50" type="text" id="id_links_port">
+                </div>
+	        </div>
+	        <div class="form-row field-name">
+                <div>
+                    <label for="id_name" class="required">Tumblr:</label>
+                    <input name="tumblr" value="{{links.tumblr}}" class="vTextField" maxlength="50" type="text" id="id_links_user">
+                </div>
+	        </div>
+	        <div class="form-row field-name">
+                <div>
+                    <label for="id_name" class="required">豆瓣:</label>
+                    <input name="douban" value="{{links.douban}}" class="vTextField" maxlength="50" type="blog" id="id_links_password">
+                </div>
+	        </div>
+            <div class="form-row field-name">
+                <div>
+                    <label for="id_name" class="required">人人网:</label>
+                    <input name="renren" value="{{links.renren}}" class="vTextField" maxlength="50" type="blog" id="id_links_password">
+                </div>
+            </div>
+            <div class="form-row field-name">
+                <div>
+                    <label for="id_name" class="required">博客:</label>
+                    <input name="blog" value="{{links.blog}}" class="vTextField" maxlength="50" type="blog" id="id_links_password">
+                </div>
+            </div>
+        </div>
+		</fieldset>
+		<div class="submit-row">
+			<input type="submit" value="保存" class="default" name="_save" style="float: left">
+		</div>
+	</div>
+	</form>
+{% endblock %}

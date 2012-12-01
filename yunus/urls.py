@@ -17,8 +17,10 @@ urlpatterns = patterns('',
     url(r'^centre/', include('centre.urls')),
     url(r'^latest/feed/$', LatestArticleFeed()),
 
-    url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/mail/config/$', 'yunus.views.mail_config'),
+    url(r'^admin/links/$', 'yunus.views.links'),
+    url(r'^admin/', include(admin.site.urls)),
+
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^upload_image/', 'yunus.views.upload_image'),
 )
