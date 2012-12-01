@@ -223,7 +223,7 @@ def mail_config(request):
     return render(request, 'admin/mail_config.html', locals())
 
 def links(request):
-    title = u'友情链接'
+    title = u'相关链接'
     if request.method == 'POST':
         input_links = _get_params( request, ['sina', 'tengxun', 'tumblr', 'douban', 'renren', 'blog'] )
         log.error(input_links)
