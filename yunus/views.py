@@ -50,7 +50,8 @@ def search(request):
     )
 
     e = datetime.datetime.now()
-    seconds = abs((s-e).total_seconds())
+    used_time = e - s
+    seconds = used_time.days * 86400 + used_time.seconds
     return render(request, 'search_result.html', locals())
 
 def subscibe(request):
