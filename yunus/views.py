@@ -1,17 +1,19 @@
 # encoding: utf-8
 from django.http import HttpResponse, Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, PageNotAnInteger
 from django.core.mail import EmailMessage
 from django.views.decorators.csrf import csrf_exempt
-from os import path
+import os
 from centre.models import Menu, Article, Subscription, HomePicture
 from centre.const import *
+from centre import utils
+
 import logging
 log = logging.getLogger()
 
 from yunus.settings import PROJECT_DIR
-UPLOAD_DIR = path.abspath(path.join(PROJECT_DIR, '../upload/'))
+UPLOAD_DIR = os.path.abspath(os.path.join(PROJECT_DIR, '../upload/'))
 
 TOP_NUMBER = 5
 
@@ -65,48 +67,6 @@ def _upload(file):
     attach.close()
     return filepath
 
-def send_emails(request):
-    import json
-    ids = request.POST.get('ids', '')
-    objs = Subscription.objects.filter(id__in = json.loads('['+ids.strip(',')+']'))
-    if objs:
-        subject = request.POST.get('title', '')
-        body = request.POST.get('body', '')
-        from_email = '175040128@qq.com'
-        recipient_list = [i.email for i in objs]
-        attachment = request.FILES['attachment']
-        file_path = _upload(attachment)
-
-        msg = EmailMessage(subject, body, from_email, recipient_list)
-        msg.attach_file(file_path)
-        try:
-            msg.send()
-        except Exception:
-            return HttpResponse('邮件发送失败！')
-        return HttpResponse('邮件发送成功！')
-
-    return HttpResponse('sended email!')
-
-def change_language(request):
-    next = request.REQUEST.get('next', None)
-    if not next:
-        next = request.META.get('HTTP_REFERER', None)
-    if not next:
-        next = '/'
-
-    from django import http
-    response = http.HttpResponseRedirect(next)
-
-    lang_code = request.LANGUAGE_CODE
-    lang_code = 'en' if lang_code == 'zh-cn' else 'zh-cn'
-    if hasattr(request, 'session'):
-        request.session['django_language'] = lang_code
-    else:
-        from django.conf import settings
-        response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
-
-    return response
-
 def menu(request, id):
     menu = get_object_or_404(Menu, pk=id)
     sub_menus = Menu.objects.filter(parent__id=id).order_by('order')
@@ -141,6 +101,56 @@ def sub_menu(request, id, item_id):
             'request': request
         })
 
+def change_language(request):
+    next = request.REQUEST.get('next', None)
+    if not next:
+        next = request.META.get('HTTP_REFERER', None)
+    if not next:
+        next = '/'
+
+    from django import http
+    response = http.HttpResponseRedirect(next)
+
+    lang_code = request.LANGUAGE_CODE
+    lang_code = 'en' if lang_code == 'zh-cn' else 'zh-cn'
+    if hasattr(request, 'session'):
+        request.session['django_language'] = lang_code
+    else:
+        from django.conf import settings
+        response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
+
+    return response
+
+def send_emails(request):
+    import json
+    ids = request.POST.get('ids', '')
+    objs = Subscription.objects.filter(id__in = json.loads('['+ids.strip(',')+']'))
+    if objs:
+        subject = request.POST.get('title', '')
+        body = request.POST.get('body', '')
+        from_email = request.POST.get('from', '')
+        recipient_list = [i.email for i in objs]
+        attachment = request.FILES['attachment']
+        file_path = _upload(attachment)
+
+        msg = EmailMessage(subject, body, from_email, recipient_list)
+        msg.attach_file(file_path)
+        import settings
+        log.error(settings.EMAIL_HOST)
+        log.error(settings.EMAIL_PORT)
+        log.error(settings.EMAIL_HOST_USER)
+        log.error(settings.EMAIL_HOST_USER)
+        log.error(settings.EMAIL_HOST_PASSWORD)
+        log.error(settings.EMAIL_USE_TLS)
+        try:
+            msg.send()
+        except Exception, e:
+            import sys
+            return HttpResponse('邮件发送失败！'+str(sys.exc_info()))
+        return HttpResponse('邮件发送成功！')
+
+    return HttpResponse('sended email!')
+
 @csrf_exempt
 def upload_image(request):  
     from settings import MEDIA_DIR, IMAGES_UPLOAD_DIR, MEDIA_URL
@@ -148,7 +158,6 @@ def upload_image(request):
         if "upload_file" in request.FILES:  
             f = request.FILES["upload_file"]  
             from PIL import ImageFile, Image
-            import os
             from datetime import datetime
             parser = ImageFile.Parser()
             for chunk in f.chunks():  
@@ -192,3 +201,21 @@ def _set_first(items):
         items[0].first = True
 
     return items
+
+def mail_config(request):
+    title = u'邮箱配置'
+    if request.method == 'POST':
+        host = request.POST.get('email_host')
+        port = request.POST.get('email_port')
+        user = request.POST.get('email_user')
+        password = request.POST.get('email_password')
+        use_tls = request.POST.get('email_use_tls', 'off')
+        inputs = {'host':host,'port':port,'user':user,'password':password,'use_tls': 1 if use_tls=='on' else 0 }
+        utils.set_email_info(inputs)
+        from django.contrib import messages
+        messages.add_message(request, messages.INFO, u'邮箱配置信息以保存！')
+        return redirect(request.path)
+
+    email = utils.get_email_info()
+
+    return render(request, 'admin/mail_config.html', locals())

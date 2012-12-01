@@ -1,0 +1,48 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
+{% endblock %}
+
+{% block content %}
+	<form method="post" action="">{% csrf_token %}
+	<div>
+		<fieldset class="module aligned ">
+	        <div class="form-row field-name">
+                <div>
+                    <label for="id_email_host" class="required">邮件服务器:</label>
+                    <input name="email_host" value="{{email.host}}" class="vTextField" maxlength="50" type="text" id="id_email_host">
+                </div>
+	        </div>
+	        <div class="form-row field-name">
+                <div>
+                    <label for="id_name" class="required">端口号:</label>
+                    <input name="email_port" value="{{email.port}}" class="vTextField" maxlength="50" type="text" id="id_email_port">
+                </div>
+	        </div>
+	        <div class="form-row field-name">
+                <div>
+                    <label for="id_name" class="required">邮箱地址:</label>
+                    <input name="email_user" value="{{email.user}}" class="vTextField" maxlength="50" type="text" id="id_email_user">
+                </div>
+	        </div>
+	        <div class="form-row field-name">
+                <div>
+                    <label for="id_name" class="required">密码:</label>
+                    <input name="email_password" value="{{email.password}}" class="vTextField" maxlength="50" type="password" id="id_email_password">
+                </div>
+	        </div>
+	        <div class="form-row field-name">
+                <div>
+                    <input {% if email.use_tls %}checked="checked"{% endif %} type="checkbox" name="email_use_tls" id="id_email_use_tls"><label for="id_deletable" class="vCheckboxLabel">是否启用安全连接</label>
+                </div>
+	        </div>
+        </div>
+		</fieldset>
+		<div class="submit-row">
+			<input type="submit" value="保存" class="default" name="_save" style="float: left">
+		</div>
+	</div>
+	</form>
+{% endblock %}

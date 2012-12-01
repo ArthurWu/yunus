@@ -148,11 +148,15 @@ INSTALLED_APPS = (
     'tinymce',
 )
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'arthur.wu.34@gmail.com'
-EMAIL_HOST_PASSWORD = 'wenjin34'
-EMAIL_USE_TLS = True
+
+from centre import utils
+_email = utils.get_email_info()
+
+EMAIL_HOST = _email['host']
+EMAIL_PORT = _email['port']
+EMAIL_HOST_USER = _email['user']
+EMAIL_HOST_PASSWORD = utils.decrypt(_email['password'])
+EMAIL_USE_TLS = bool(_email['use_tls'])
 
 # EMAIL_HOST = 'smtp.qq.com'
 # EMAIL_PORT = 587

@@ -44,12 +44,14 @@ function showallemail(){
 {% endblock %}
 
 {% block content %}
-    
+    <div class="module">
     <form class="mail-form" action="/send_emails/" method="post" enctype="multipart/form-data">{% csrf_token %}
         <div class="mail">
+            <div><span><a href="/admin/mail/config/">配置邮箱</a></span></div>
             <p>
                 <span>发件人：</span>
-                <span>175040128@.qq.com</span>
+                <span>{{email.user}}</span>
+                <input type="hidden" value="{{email.user}}" name="from" />
             </p>
             <div>
                 <span>收件人：</span>
@@ -90,5 +92,5 @@ function showallemail(){
             <input type="submit" value="发送" id="id_submit" />
         </div>
     </form>
-    
+    </div>
 {% endblock %}
