@@ -4,7 +4,7 @@ var PImgPlayer = {
  _container : null,
  _index : 0,
  _imgs : [],
- intervalTime : 5000, //轮播间隔时间
+ intervalTime : 8000, //轮播间隔时间
  init : function( objID, w, h, time ){
   this.intervalTime = time || this.intervalTime;
   this._container = document.getElementById( objID );
