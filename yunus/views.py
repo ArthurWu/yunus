@@ -82,7 +82,7 @@ def menu(request, id):
             'menu': menu, 
             'selected_menu_id': sub_menus[0].id if sub_menus else 0,
             'articles': articles,
-            'mutilpages': page_num <= len(articles),
+            'mutilpages': page_num <= len(articles_list),
             'request': request
         })
 
@@ -98,7 +98,7 @@ def sub_menu(request, id, item_id):
             'articles': articles, 
             'selected_menu_id': int(item_id),
             'menu': menu,
-            'mutilpages': page_num <= len(articles),
+            'mutilpages': page_num <= len(articles_list),
             'request': request
         })
 

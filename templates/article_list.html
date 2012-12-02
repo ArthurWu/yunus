@@ -41,7 +41,9 @@
                 {% if articles %}
                 {% for article in articles %}
                 <li>
+                    <a href="/centre/article/{{article.id}}">
                     <img class="img-left" src="/media/{{article.image}}" alt="" />
+                    </a>
                     <span class="item-info">
                         <a class="none-style" href="/centre/article/{{article.id}}"><span class="item-title">{% tran article "title" request.LANGUAGE_CODE %}</span></a>
                         <span class="item-date">{% tran article.menu "name" request.LANGUAGE_CODE %} | {{article.created|date:"Y-m-d H:s"}}</span>

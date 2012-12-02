@@ -120,6 +120,7 @@ img, a img{ border: none;}
     padding-left: 20px;
     margin: 5px 0;
     background: url(/static/image/li_triangle_grad.jpg) no-repeat left top;
+    clear: both;
 }
 .box-content ul li.no-triangle{
     background: none;
