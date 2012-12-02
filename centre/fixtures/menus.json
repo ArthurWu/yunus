@@ -86,5 +86,21 @@
       "order": 4,
       "deletable": false
     }
+  },
+  {
+    "model": "centre.Article",
+    "pk": 0,
+    "fields": {
+      "menu": 8,
+      "title": "联系我们",
+      "title_english": "About Us",
+      "summary": "联系我们",
+      "summary_english": "About Us",
+      "body": "联系我们",
+      "body_english": "About Us",
+      "created": "2012-10-12 00:00",
+      "modified": "2012-10-12 00:00",
+      "deletable": false
+    }
   }
 ]
