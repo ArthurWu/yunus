@@ -4,8 +4,8 @@ from django.db import models
 class Menu(models.Model):
     name = models.CharField(u'名称', max_length=50)
     name_english = models.CharField(u'英文名称', max_length=50)
-    order = models.IntegerField(u'排序', blank=True)
-    image = models.ImageField(u'图片', upload_to="menu", blank=True, help_text=u"图片大小为980px x 240px, 否则页面布局会出现不协调")
+    order = models.IntegerField(u'排序', blank=True, null=True)
+    image = models.ImageField(u'图片', upload_to="menu", blank=True, null=True, help_text=u"图片大小为980px x 240px, 否则页面布局会出现不协调")
     parent = models.ForeignKey('Menu', verbose_name= u'父级', null=True, blank=True, related_name='menu_items')
     deletable = models.BooleanField(u'是否可删除', default=True)
     
@@ -54,8 +54,8 @@ class Subscription(models.Model):
 
 class HomePicture(models.Model):
     image = models.ImageField(upload_to="home", verbose_name=u"图片", help_text=u"图片大小为980px x 512px, 否则页面布局会出现不协调")
-    articles = models.OneToOneField(Article, verbose_name=u'关联文章', help_text=u"多张图片不能同时关联到同一篇文章，图片和文章是一一对应的关系")
-    order = models.IntegerField(u"排序")
+    articles = models.OneToOneField(Article, null=True, blank=True, verbose_name=u'关联文章', help_text=u"多张图片不能同时关联到同一篇文章，图片和文章是一一对应的关系")
+    order = models.IntegerField(u"排序", blank=True, null=True)
 
     class Meta:
         verbose_name = u'首页轮播图片'

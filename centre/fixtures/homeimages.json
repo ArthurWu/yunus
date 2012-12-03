@@ -4,7 +4,6 @@
     "pk": 1,
     "fields": {
       "image": "home/01.jpg",
-      "articles": 1,
       "order": 1
     }
   },
@@ -13,7 +12,6 @@
     "pk": 2,
     "fields": {
       "image": "home/02.jpg",
-      "articles": 2,
       "order": 2
     }
   },
@@ -22,7 +20,6 @@
     "pk": 3,
     "fields": {
       "image": "home/03.jpg",
-      "articles": 3,
       "order": 3
     }
   },
@@ -31,7 +28,6 @@
     "pk": 4,
     "fields": {
       "image": "home/04.jpg",
-      "articles": 4,
       "order": 4
     }
   },
@@ -40,7 +36,6 @@
     "pk": 5,
     "fields": {
       "image": "home/05.jpg",
-      "articles": 5,
       "order": 5
     }
   }
