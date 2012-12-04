@@ -17,7 +17,7 @@ def set_email_info(email):
     config.add_section('email')
     for k, v in email.items():
         if k == 'password' and update_pwd:
-            v = ecrypt(v)
+            v = ecrypt(v) if v != '' else v
         config.set('email', k, v)
 
     config.write(config_file)
@@ -27,7 +27,9 @@ def need_update(pwd):
     return get_email_info()['password'].strip() != pwd.strip()
 
 def decrypt(value):
-    return signing.loads(value)
+    if value:
+        return signing.loads(value)
+    return value
 
 def ecrypt(value):
     return signing.dumps(value)
