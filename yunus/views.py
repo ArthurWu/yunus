@@ -60,14 +60,6 @@ def subscibe(request):
 
     return render(request, 'subscibe_success.html', locals())
 
-def _upload(file):
-    filepath = UPLOAD_DIR+'\\'+file.name
-    attach = open(filepath, 'wb+')
-    for chunk in file.chunks():
-        attach.write(chunk)
-    attach.close()
-    return filepath
-
 def menu(request, id):
     menu = get_object_or_404(Menu, pk=id)
     sub_menus = Menu.objects.filter(parent__id=id).order_by('order')
@@ -122,6 +114,15 @@ def change_language(request):
 
     return response
 
+def _upload(file, path=None):
+    if not path: path = UPLOAD_DIR+'\\'
+    filepath = path+file.name
+    attach = open(filepath, 'wb+')
+    for chunk in file.chunks():
+        attach.write(chunk)
+    attach.close()
+    return filepath
+
 def send_emails(request):
     import json
     ids = request.POST.get('ids', '')
@@ -157,29 +158,22 @@ def upload_image(request):
     from settings import MEDIA_DIR, IMAGES_UPLOAD_DIR, MEDIA_URL
     if request.method == 'POST':
         if "upload_file" in request.FILES:  
-            f = request.FILES["upload_file"]  
-            from PIL import ImageFile, Image
+            file_ = request.FILES["upload_file"]
+            
             from datetime import datetime
-            parser = ImageFile.Parser()
-            for chunk in f.chunks():  
-                parser.feed(chunk)  
-            img = parser.close()  
 
             #在img被保存之前，可以进行图片的各种操作，在各种操作完成后，在进行一次写操作
             dt = datetime.now()
             cur_dir = '%s_%s_%s' % (dt.year, dt.month, dt.day)
-            file_path = os.path.join(MEDIA_DIR,IMAGES_UPLOAD_DIR, cur_dir)
-            if not os.path.exists(file_path):
-                os.mkdir(file_path)
+            file_path_ = os.path.join(MEDIA_DIR,IMAGES_UPLOAD_DIR, cur_dir)
+            if not os.path.exists(file_path_):
+                os.mkdir(file_path_)
 
             file_name = '%s_%s_%s' % (dt.hour, dt.minute, dt.second)
-            thumb_fn = file_name+'_min'
-            f = os.path.join(file_path, file_name)
-            tf = os.path.join(file_path, thumb_fn)
-            new_img=img.resize((120,120), Image.ANTIALIAS)
-            new_img.save(tf+'.jpg','JPEG')
-            img.save(f+'.jpg','JPEG')
-            return HttpResponse('%s%s/%s/%s.jpg' % (MEDIA_URL, IMAGES_UPLOAD_DIR, cur_dir, file_name))
+            full_path = os.path.join(file_path_, file_name)
+
+            file_path = _upload(file_, full_path)
+            return HttpResponse('%s%s/%s/%s' % (MEDIA_URL, IMAGES_UPLOAD_DIR, cur_dir, file_name+file_.name))
 
     return HttpResponse(u"Some error!Upload faild!格式：jpeg")
 

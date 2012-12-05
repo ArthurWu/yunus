@@ -20,10 +20,10 @@
          $('#id_insert_image_form').ajaxSubmit({
              beforeSubmit: function () {},
              success: function (html, status) {
-                 alert(html);
                  var result = html.replace("<PRE>", "");
                  result = result.replace("</PRE>", "");
                  if (html.indexOf("格式") > 0) {
+                     alert(result);
                      return;
                  }
                  $("#src").val(result);
